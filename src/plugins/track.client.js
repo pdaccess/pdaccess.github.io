@@ -1,5 +1,5 @@
 import mautic from 'mautic-tracking';
-mautic.initialize('https://m.h2hsecure.com/mtc.js');
+mautic.initialize('https://m.pdaccess.com/mtc.js');
 
 export default (context, inject) => {
   const track = () => {
