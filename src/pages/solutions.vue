@@ -33,8 +33,7 @@ import Section from '~/components/Section.vue'
 definePageMeta({ layout: 'default' })
 
 const { data: pages } = await useAsyncData('solutions', async () => {
-  const content = await useContent()
-  const solutions = await content.getCollection('solution').find()
+  const solutions = await queryContent('solution').find()
   return solutions.sort((a, b) => (b.time || 0) - (a.time || 0))
 })
 </script>

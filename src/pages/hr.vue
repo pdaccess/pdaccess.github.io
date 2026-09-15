@@ -45,12 +45,10 @@ import CvForm from '~/components/forms/CVForm.vue'
 definePageMeta({ layout: 'default' })
 
 const { data: j1 } = await useAsyncData('hr-j1', async () => {
-  const content = await useContent()
-  return await content.findOne('hr', 'cybersecurity_developer')
+  return await queryContent('hr').where({ _path: '/cybersecurity_developer' }).first()
 })
 
 const { data: j2 } = await useAsyncData('hr-j2', async () => {
-  const content = await useContent()
-  return await content.findOne('hr', 'cybersecurity_validation_engineer')
+  return await queryContent('hr').where({ _path: '/cybersecurity_validation_engineer' }).first()
 })
 </script>

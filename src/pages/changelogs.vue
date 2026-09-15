@@ -48,8 +48,7 @@ import Section from '~/components/Section.vue'
 definePageMeta({ layout: 'default' })
 
 const { data: pages } = await useAsyncData('changelogs', async () => {
-  const content = await useContent()
-  const changelogs = await content.getCollection('changelog').find()
+  const changelogs = await queryContent('changelog').find()
   return changelogs.sort((a, b) => (b.time || 0) - (a.time || 0))
 })
 </script>

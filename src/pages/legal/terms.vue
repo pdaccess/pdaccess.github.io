@@ -14,8 +14,7 @@ import Section from '~/components/Section.vue'
 
 definePageMeta({ layout: 'default' })
 
-const { data: article } = await useAsyncData('terms', async () => {
-  const content = await useContent()
-  return await content.findOne('legal', 'terms_and_conditions')
+const { data: article } = await useAsyncData('legal-terms', async () => {
+  return await queryContent('legal').where({ _path: '/terms_and_conditions' }).first()
 })
 </script>

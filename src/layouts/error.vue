@@ -20,7 +20,5 @@
 <script setup lang="ts">
 import Section from '~/components/Section.vue'
 
-definePageMeta({ layout: 'default' })
-
 const error = useError()
 </script>

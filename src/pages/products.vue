@@ -71,7 +71,6 @@ import Price from '~/components/Price.vue'
 definePageMeta({ layout: 'default' })
 
 const { data: pages } = await useAsyncData('products', async () => {
-  const content = await useContent()
-  return await content.getCollection('product').find()
+  return await queryContent('product').find()
 })
 </script>

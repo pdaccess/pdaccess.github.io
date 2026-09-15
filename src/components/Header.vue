@@ -18,7 +18,7 @@
           <NuxtLink to="/solutions/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium">
             Solutions
           </NuxtLink>
-          <NuxtLink to="/blog/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium">
+          <NuxtLink to="/blogs" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium">
             Blog
           </NuxtLink>
           <NuxtLink to="/sales/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium">
@@ -60,7 +60,7 @@
           <NuxtLink to="/solutions/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">
             Solutions
           </NuxtLink>
-          <NuxtLink to="/blog/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">
+          <NuxtLink to="/blogs" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">
             Blog
           </NuxtLink>
           <NuxtLink to="/sales/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">

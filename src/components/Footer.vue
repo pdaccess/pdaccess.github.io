@@ -48,9 +48,9 @@
         <div class="flex items-center space-x-4 text-sm">
           <NuxtLink to="/about" class="text-dark-400 hover:text-white transition-colors duration-200">About</NuxtLink>
           <span class="text-dark-600">|</span>
-          <NuxtLink to="/terms" class="text-dark-400 hover:text-white transition-colors duration-200">Terms</NuxtLink>
+          <NuxtLink to="/legal/terms" class="text-dark-400 hover:text-white transition-colors duration-200">Terms</NuxtLink>
           <span class="text-dark-600">|</span>
-          <NuxtLink to="/privacy" class="text-dark-400 hover:text-white transition-colors duration-200">Privacy</NuxtLink>
+          <NuxtLink to="/legal/privacy" class="text-dark-400 hover:text-white transition-colors duration-200">Privacy</NuxtLink>
           <span class="text-dark-600">|</span>
           <NuxtLink to="/contacts" class="text-dark-400 hover:text-white transition-colors duration-200">Contact</NuxtLink>
         </div>

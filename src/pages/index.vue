@@ -89,9 +89,6 @@ import Section from '~/components/Section.vue'
 
 definePageMeta({ layout: 'default' })
 
-const runtimeConfig = useRuntimeConfig()
-const publicPath = runtimeConfig.public.appUrl || ''
-
 const router = useRouter()
 const showEmail = ref(false)
 const showErrorMessage = ref(false)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <Section :full="false">
-      <div class="container has-text-centered is-white">
+      <div class="container has-text-centered">
         <h1 class="is-spaced title is-1">{{ article.title }}</h1>
         <h2 class="subtitle is-3">{{ article.description }}</h2>
       </div>
@@ -14,36 +14,32 @@
         </div>
         <br />
         <p>Article last updated: {{ article.updatedAt }}</p>
-        <PrevNext :prev="prev" :next="next" base="changelog" />
+        <PrevNext :prev="prev" :next="next" base="solution" />
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useAsyncData } from '#app'
+import { useAsyncData, useRoute } from '#app'
 import Section from '~/components/Section.vue'
 import PrevNext from '~/components/global/PrevNext.vue'
 
 definePageMeta({ layout: 'default' })
 
-const { $route } = useNuxtApp() as any
-const slug = $route.params.slug
+const route = useRoute()
+const slug = route.params.slug as string
 
 if (slug === 'undefined' || !slug) {
   throw createError({ statusCode: 404, message: 'Page Not Found' })
 }
 
-const { data: article } = await useAsyncData(`changelog-${slug}`, async () => {
-  const content = await useContent()
-  return await content.findOne('changelog', slug)
+const { data: article } = await useAsyncData(`solution-${slug}`, async () => {
+  return await queryContent('solution').where({ _path: `/${slug}` }).first()
 })
 
-const { data: surroundData } = await useAsyncData(`changelog-surround-${slug}`, async () => {
-  const content = await useContent()
-  return await content.getCollection('changelog').surround(slug, {
-    fields: ['title', 'slug']
-  }).find()
+const { data: surroundData } = await useAsyncData(`solution-surround-${slug}`, async () => {
+  return await queryContent('solution').surround(slug, { before: 1, after: 1 }).find()
 })
 
 const prev = surroundData.value?.[0] || null

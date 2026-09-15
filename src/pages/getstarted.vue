@@ -15,7 +15,6 @@ import Section from '~/components/Section.vue'
 definePageMeta({ layout: 'default' })
 
 const { data: article } = await useAsyncData('getstarted', async () => {
-  const content = await useContent()
-  return await content.findOne('legal', 'get_started')
+  return await queryContent('legal').where({ _path: '/get_started' }).first()
 })
 </script>
