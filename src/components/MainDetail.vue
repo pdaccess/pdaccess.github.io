@@ -1,20 +1,20 @@
 <template>
-  <div class="bg-dark-950">
+  <div :class="isDark ? 'bg-dark-950' : 'bg-white'">
     <section class="section-padding">
       <div class="container-narrow">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Core Features</h2>
-          <p class="text-dark-400 text-lg max-w-2xl mx-auto">Next Generation PAM logic with progressive interfaces</p>
+          <h2 :class="['text-3xl md:text-4xl font-bold mb-4', isDark ? 'text-white' : 'text-gray-900']">Core Features</h2>
+          <p :class="['text-lg max-w-2xl mx-auto', isDark ? 'text-dark-400' : 'text-gray-600']">Next Generation PAM logic with progressive interfaces</p>
         </div>
         <ContentCard />
       </div>
     </section>
 
-    <section class="section-padding bg-dark-900">
+    <section :class="['section-padding', isDark ? 'bg-dark-900' : 'bg-gray-50']">
       <div class="container-narrow">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">References & Partners</h2>
-          <p class="text-dark-400 text-lg max-w-2xl mx-auto">We work with reputable companies and partners which are the best in their fields</p>
+          <h2 :class="['text-3xl md:text-4xl font-bold mb-4', isDark ? 'text-white' : 'text-gray-900']">References & Partners</h2>
+          <p :class="['text-lg max-w-2xl mx-auto', isDark ? 'text-dark-400' : 'text-gray-600']">We work with reputable companies and partners which are the best in their fields</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div
@@ -25,7 +25,8 @@
             <figure>
               <img
                 :src="`/refs/${image.src}`"
-                class="h-16 md:h-20 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                class="h-16 md:h-20 transition-all duration-300"
+                :class="isDark ? 'grayscale opacity-70 hover:opacity-100 hover:grayscale-0' : 'opacity-80 hover:opacity-100'"
                 alt="Partner"
               />
             </figure>
@@ -37,63 +38,39 @@
     <section id="protocols" class="section-padding">
       <div class="container-narrow">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Features for PAM&amp;IAM needs</h2>
-          <p class="text-dark-400 text-lg max-w-2xl mx-auto">Comprehensive privileged access management capabilities</p>
+          <h2 :class="['text-3xl md:text-4xl font-bold mb-4', isDark ? 'text-white' : 'text-gray-900']">Features for PAM&amp;IAM needs</h2>
+          <p :class="['text-lg max-w-2xl mx-auto', isDark ? 'text-dark-400' : 'text-gray-600']">Comprehensive privileged access management capabilities</p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <div class="card p-6 text-center hover:scale-105 transition-transform duration-300">
+          <div v-for="(feature, index) in features" :key="index" class="card p-6 text-center hover:scale-105 transition-transform duration-300">
             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-500/20 flex items-center justify-center">
-              <img :src="`/animations/663-fingerprint-scan.gif`" alt="Authentication" class="w-12 h-12" />
+              <img :src="feature.img" :alt="feature.title" class="w-12 h-12" />
             </div>
-            <h3 class="text-xl font-semibold text-white mb-2">Authentication</h3>
-            <p class="text-dark-400 text-sm">OAUTH2, SAML, LDAP</p>
-          </div>
-
-          <div class="card p-6 text-center hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-500/20 flex items-center justify-center">
-              <img :src="`/animations/plug.gif`" alt="Protocols" class="w-12 h-12" />
-            </div>
-            <h3 class="text-xl font-semibold text-white mb-2">Protocols</h3>
-            <p class="text-dark-400 text-sm">SSH, TELNET, VNC, RDP, SQL</p>
-          </div>
-
-          <div class="card p-6 text-center hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-500/20 flex items-center justify-center">
-              <img :src="`/animations/computer.gif`" alt="Platforms" class="w-12 h-12" />
-            </div>
-            <h3 class="text-xl font-semibold text-white mb-2">Platforms</h3>
-            <p class="text-dark-400 text-sm">Mac, Linux, Windows</p>
-          </div>
-
-          <div class="card p-6 text-center hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-500/20 flex items-center justify-center">
-              <img :src="`/animations/696-padlock-tick.gif`" alt="Vault" class="w-12 h-12" />
-            </div>
-            <h3 class="text-xl font-semibold text-white mb-2">Vault</h3>
-            <p class="text-dark-400 text-sm">Military grade encryption</p>
+            <h3 :class="['text-xl font-semibold mb-2', isDark ? 'text-white' : 'text-gray-900']">{{ feature.title }}</h3>
+            <p :class="['text-sm', isDark ? 'text-dark-400' : 'text-gray-600']">{{ feature.desc }}</p>
           </div>
         </div>
 
         <div class="card overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full">
-              <thead class="bg-dark-800">
+              <thead :class="['bg-dark-800', isDark ? '' : 'bg-gray-100']">
                 <tr>
-                  <th class="px-6 py-4 text-left text-sm font-semibold text-dark-200 uppercase tracking-wider w-64">Feature</th>
-                  <th class="px-6 py-4 text-left text-sm font-semibold text-dark-200 uppercase tracking-wider">Details</th>
+                  <th :class="['px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider w-64', isDark ? 'text-dark-200' : 'text-gray-700']">Feature</th>
+                  <th :class="['px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider', isDark ? 'text-dark-200' : 'text-gray-700']">Details</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-dark-800">
-                <tr v-for="(detail, index) in details" :key="index" class="hover:bg-dark-800/50 transition-colors duration-200">
-                  <td class="px-6 py-4"><h4 class="font-semibold text-white">{{ detail.title }}</h4></td>
-                  <td class="px-6 py-4 text-dark-400 text-sm" v-html="detail.desc" />
+              <tbody :class="[isDark ? 'divide-y divide-dark-800' : 'divide-y divide-gray-200']">
+                <tr v-for="(detail, index) in details" :key="index" :class="['transition-colors duration-200', isDark ? 'hover:bg-dark-800/50' : 'hover:bg-gray-50']">
+                  <td class="px-6 py-4"><h4 :class="['font-semibold', isDark ? 'text-white' : 'text-gray-900']">{{ detail.title }}</h4></td>
+                  <td class="px-6 py-4 text-sm" :class="isDark ? 'text-dark-400' : 'text-gray-600'" v-html="detail.desc" />
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="px-6 py-4 bg-dark-800/50 border-t border-dark-700">
-            <em class="text-accent-400 text-sm">* This feature is supported in enterprise version</em>
+          <div :class="['px-6 py-4 border-t', isDark ? 'bg-dark-800/50 border-dark-700' : 'bg-gray-50 border-gray-200']">
+            <em class="text-sm">* This feature is supported in enterprise version</em>
           </div>
         </div>
       </div>
@@ -102,12 +79,25 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useTheme } from '~/composables/useTheme'
 import ContentCard from './ContentCard.vue'
+
+const { isDark } = useTheme()
 
 const allRefs = [
   ...[{ src: 'iyzico.jpg' }, { src: 'tcsc.jpg' }, { src: 'tt-pilot.png' }, { src: 'akaunting.png' }],
   ...[{ src: 'turk-telekom.jpg' }, { src: 'turkcell3.png' }, { src: 'yklogo.jpg' }, { src: 'turkcell-global-bilgi.png' }],
   ...[{ src: 'entertech.png' }, { src: 'icube.jpg' }, { src: 'growth-circuit.png' }, { src: 'draper_uni.png' }],
+]
+
+const allImages = computed(() => allRefs.filter(src => src.src))
+
+const features = [
+  { title: 'Authentication', img: '/animations/663-fingerprint-scan.gif', desc: 'OAUTH2, SAML, LDAP' },
+  { title: 'Protocols', img: '/animations/plug.gif', desc: 'SSH, TELNET, VNC, RDP, SQL' },
+  { title: 'Platforms', img: '/animations/computer.gif', desc: 'Mac, Linux, Windows' },
+  { title: 'Vault', img: '/animations/696-padlock-tick.gif', desc: 'Military grade encryption' },
 ]
 
 const details = [

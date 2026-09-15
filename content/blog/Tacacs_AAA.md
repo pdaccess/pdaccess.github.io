@@ -1,6 +1,8 @@
 ---
 title: Cybersecurity Unleashed - TACACS+ Precision and Privilege Management in PDAccess
 description: Unlock a new era in cybersecurity with TACACS+ precision and Privilege Management in PDAccess. Experience adaptive access control and robust defense against evolving threats. Elevate your cybersecurity strategy.
+image: Screen_Shot_2019_05_16_at_18_30_16_1024x542_a8d501ba96.png
+updatedAt: 2025-05-12
 author:
   name: pdaccess Team
   bio: pdaccess Team

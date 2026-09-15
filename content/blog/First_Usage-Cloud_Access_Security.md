@@ -1,6 +1,8 @@
 ---
 title: First Usage
 description: Elevate cloud security effortlessly with PDAccess - where proxy logic meets privileged access management, simplifying connectivity and transforming how credentials are handled from a PAM engineer's perspective
+image: Screen_Shot_2019_05_16_at_18_30_16_1024x542_a8d501ba96.png
+updatedAt: 2025-03-10
 author:
   name: pdaccess Team
   bio: pdaccess Team

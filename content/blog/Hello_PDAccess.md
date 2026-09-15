@@ -1,6 +1,8 @@
 ---
 title: Hello PDAccess
 description: 101 for Cloud Access Security
+image: Screen_Shot_2019_05_16_at_18_30_16_1024x542_a8d501ba96.png
+updatedAt: 2025-01-15
 author:
   name: pdaccess Team
   bio: pdaccess Team

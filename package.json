@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nuxt dev --hostname localhost --port 3000",
+    "dev2": "nuxt dev --host 192.168.178.4 --port 3000",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview"

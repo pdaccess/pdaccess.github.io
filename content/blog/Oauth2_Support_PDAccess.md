@@ -1,6 +1,8 @@
 ---
 title: Oauth2 Support for PDAccess
 description: PDVault Product Description
+image: Screen_Shot_2019_05_16_at_18_30_48_1024x653_7724e6c572.png
+updatedAt: 2025-04-05
 author:
   name: pdaccess Team
   bio: pdaccess Team

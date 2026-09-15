@@ -2,7 +2,9 @@
   <header
     :class="[
       'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-      isScrolled ? 'bg-dark-950/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      isScrolled
+        ? (isDark ? 'bg-dark-950/90 backdrop-blur-md shadow-lg' : 'bg-white/90 backdrop-blur-md shadow-lg')
+        : 'bg-transparent'
     ]"
   >
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" role="navigation" aria-label="main navigation">
@@ -27,6 +29,9 @@
         </div>
 
         <div class="hidden md:flex items-center space-x-4">
+          <button @click="toggleTheme" class="p-2 rounded-lg text-dark-400 hover:text-white hover:bg-dark-800 transition-colors duration-200" :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
+            <font-awesome-icon :icon="isDark ? ['fa', 'sun'] : ['fa', 'moon']" class="text-lg" />
+          </button>
           <a href="https://www.github.com/pdaccess" class="text-dark-400 hover:text-white transition-colors duration-200">
             <font-awesome-icon :icon="['fab', 'github']" class="text-lg" />
           </a>
@@ -52,28 +57,28 @@
         </button>
       </div>
 
-      <div v-show="isOpen" class="md:hidden pb-4 border-t border-dark-800 mt-2 pt-4">
+      <div v-show="isOpen" :class="['md:hidden pb-4 border-t mt-2 pt-4', isDark ? 'border-dark-800 bg-dark-950' : 'border-gray-200 bg-white']">
         <div class="flex flex-col space-y-2">
-          <NuxtLink to="/products/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">
+          <NuxtLink to="/products/" :class="['px-4 py-2 rounded-lg rounded-lg font-medium transition-colors duration-200', isDark ? 'text-dark-300 hover:text-white hover:bg-dark-800' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100']" @click="isOpen = false">
             Products
           </NuxtLink>
-          <NuxtLink to="/solutions/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">
+          <NuxtLink to="/solutions/" :class="['px-4 py-2 rounded-lg rounded-lg font-medium transition-colors duration-200', isDark ? 'text-dark-300 hover:text-white hover:bg-dark-800' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100']" @click="isOpen = false">
             Solutions
           </NuxtLink>
-          <NuxtLink to="/blogs" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">
+          <NuxtLink to="/blogs" :class="['px-4 py-2 rounded-lg rounded-lg font-medium transition-colors duration-200', isDark ? 'text-dark-300 hover:text-white hover:bg-dark-800' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100']" @click="isOpen = false">
             Blog
           </NuxtLink>
-          <NuxtLink to="/sales/" class="px-4 py-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors duration-200 font-medium" @click="isOpen = false">
+          <NuxtLink to="/sales/" :class="['px-4 py-2 rounded-lg rounded-lg font-medium transition-colors duration-200', isDark ? 'text-dark-300 hover:text-white hover:bg-dark-800' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100']" @click="isOpen = false">
             Questions?
           </NuxtLink>
-          <div class="flex items-center space-x-3 pt-3 border-t border-dark-800">
-            <a href="https://www.github.com/pdaccess" class="text-dark-400 hover:text-white transition-colors duration-200">
+          <div :class="['flex items-center space-x-3 pt-3 border-t', isDark ? 'border-dark-800' : 'border-gray-200']">
+            <a href="https://www.github.com/pdaccess" :class="['transition-colors duration-200', isDark ? 'text-dark-400 hover:text-white' : 'text-gray-500 hover:text-gray-900']">
               <font-awesome-icon :icon="['fab', 'github']" class="text-lg" />
             </a>
-            <a href="mailto:hello@pdaccess.com" class="text-dark-400 hover:text-white transition-colors duration-200">
+            <a href="mailto:hello@pdaccess.com" :class="['transition-colors duration-200', isDark ? 'text-dark-400 hover:text-white' : 'text-gray-500 hover:text-gray-900']">
               <font-awesome-icon :icon="['fa', 'envelope']" class="text-lg" />
             </a>
-            <a href="https://www.linkedin.com/company/pdaccess" class="text-dark-400 hover:text-white transition-colors duration-200">
+            <a href="https://www.linkedin.com/company/pdaccess" :class="['transition-colors duration-200', isDark ? 'text-dark-400 hover:text-white' : 'text-gray-500 hover:text-gray-900']">
               <font-awesome-icon :icon="['fab', 'linkedin']" class="text-lg" />
             </a>
           </div>
@@ -94,7 +99,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScroll } from '~/composables/useScroll'
+import { useTheme } from '~/composables/useTheme'
 
 const { isScrolled } = useScroll(20)
+const { isDark, toggleTheme } = useTheme()
 const isOpen = ref(false)
 </script>

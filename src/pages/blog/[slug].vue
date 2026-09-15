@@ -1,20 +1,23 @@
 <template>
   <div>
     <Section :full="false">
-      <div class="container has-text-left">
-        <h1 class="is-spaced title is-1">{{ article.title }}</h1>
-        <h2 class="subtitle is-3">{{ article.description }}</h2>
+      <div class="container-narrow">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">{{ article.title }}</h1>
+        <p class="text-dark-400 text-lg mb-4">{{ article.description }}</p>
+        <p class="text-dark-500 text-sm">Updated: {{ article.updatedAt }}</p>
       </div>
     </Section>
-    <section class="section">
-      <div class="container">
-        <img :src="article.img" :alt="article.alt" />
-        <div class="content is-medium">
+    <section class="py-16 bg-dark-950">
+      <div class="container-narrow">
+        <div v-if="article.image" class="mb-8">
+          <img :src="`/uploads/blog/${article.image}`" :alt="article.title" class="w-full rounded-xl shadow-lg" />
+        </div>
+        <div class="prose prose-invert max-w-none">
           <NuxtContent :document="article" />
         </div>
-        <br />
-        <p>Article last updated: {{ article.updatedAt }}</p>
-        <PrevNext :prev="prev" :next="next" base="blog" />
+        <div class="mt-12 pt-8 border-t border-dark-800">
+          <PrevNext :prev="prev" :next="next" base="blog" />
+        </div>
       </div>
     </section>
   </div>

@@ -1,6 +1,8 @@
 ---
 title: Mastering Multi-Cloud Security - A Deep Dive into Secure Instance Management with PDAccess
 description: Elevate your cloud security with PDAccess - a comprehensive exploration of secure multi-cloud instance management, from defining services to leveraging advanced Vault systems.
+image: Screen_Shot_2019_05_16_at_18_30_48_1024x653_7724e6c572.png
+updatedAt: 2025-02-20
 author:
   name: pdaccess Team
   bio: pdaccess Team
