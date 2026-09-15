@@ -63,7 +63,8 @@ export default defineNuxtConfig({
   components: true,
 
   modules: [
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/tailwindcss'
   ],
 
   content: {
