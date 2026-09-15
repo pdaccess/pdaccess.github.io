@@ -6,7 +6,7 @@
           <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Core Features</h2>
           <p class="text-dark-400 text-lg max-w-2xl mx-auto">Next Generation PAM logic with progressive interfaces</p>
         </div>
-        <Content />
+        <ContentCard />
       </div>
     </section>
 
@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import Content from './Content.vue'
+import ContentCard from './ContentCard.vue'
 
 const allRefs = [
   ...[{ src: 'iyzico.jpg' }, { src: 'tcsc.jpg' }, { src: 'tt-pilot.png' }, { src: 'akaunting.png' }],

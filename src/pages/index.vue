@@ -84,7 +84,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import MainDetail from '~/views/MainDetail.vue'
+import MainDetail from '~/components/MainDetail.vue'
 import Section from '~/components/Section.vue'
 
 definePageMeta({ layout: 'default' })

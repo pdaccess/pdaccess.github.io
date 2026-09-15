@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import { useAsyncData } from '#app'
 import Section from '~/components/Section.vue'
-import Price from '~/views/Price.vue'
+import Price from '~/components/Price.vue'
 
 definePageMeta({ layout: 'default' })
 
