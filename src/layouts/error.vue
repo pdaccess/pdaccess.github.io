@@ -1,24 +1,26 @@
 <template>
-  <Section>
-    <div class="hero-body" v-scroll-reveal.reset>
-      <div class="container has-text-left">
-        <h1 class="title is-1 is-black">
-          The page you are looking for is not exists
-        </h1>
-        <h2 class="subtitle is-3">...</h2>
-      </div>
-    </div>
-  </Section>
+  <div class="min-h-screen bg-dark-950">
+    <Header />
+    <Section :full="true">
+      <template #head>
+        <div class="container-narrow text-center">
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+            404 - Page Not Found
+          </h1>
+          <p class="text-dark-400 text-lg">
+            The page you are looking for does not exist.
+          </p>
+        </div>
+      </template>
+    </Section>
+    <Footer />
+  </div>
 </template>
-<script>
-import Section from "@/components/Section";
 
-export default {
-  components: {
-    Section,
-  },
-  mounted() {
-    this.$tracking();
-  },
-};
+<script setup lang="ts">
+import Section from '~/components/Section.vue'
+
+definePageMeta({ layout: 'default' })
+
+const error = useError()
 </script>
