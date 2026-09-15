@@ -3,66 +3,49 @@
     <Section :full="false">
       <div class="container has-text-centered is-white">
         <h1 class="is-spaced title is-1">{{ article.title }}</h1>
-        <h2 class="subtitle is-3">
-          {{ article.description }}
-        </h2>
-
-        <!-- <author :author="article.author" /> -->
+        <h2 class="subtitle is-3">{{ article.description }}</h2>
       </div>
-      <!-- <template name="foot">
-        <nav class="tabs is-boxed is-fullwidth">
-          <div class="container">
-            
-          </div>
-        </nav>
-      </template> -->
     </Section>
     <section class="section">
       <div class="container box">
         <img :src="article.img" :alt="article.alt" />
         <div class="content is-medium">
-          <nuxt-content :document="article" />
+          <NuxtContent :document="article" />
         </div>
         <br />
         <p>Article last updated: {{ article.updatedAt }}</p>
-        <prev-next :prev="prev" :next="next" base="product-slug" />
+        <PrevNext :prev="prev" :next="next" base="product" />
       </div>
     </section>
   </div>
 </template>
-<script>
-import Section from "@/components/Section";
 
-export default {
-  name: "product",
-  layout: "main",
-  components: {
-    Section,
-  },
-  mounted() {
-    this.$tracking();
-  },
-  head() {
-    return {
-      title: `PDAccess - ${this.article.title}`,
-    };
-  },
-  async asyncData({ $content, params }) {
-    if (params.slug == "undefined" || params.slug === null)
-      return this.$nuxt.error({ statusCode: 404 });
-    const article = await $content("product", params.slug).fetch();
+<script setup lang="ts">
+import { useAsyncData } from '#app'
+import Section from '~/components/Section.vue'
+import PrevNext from '~/components/global/PrevNext.vue'
 
-    const [prev, next] = await $content("product")
-      .only(["title", "slug"])
-      .sortBy("time", "desc")
-      .surround(params.slug)
-      .fetch();
+definePageMeta({ layout: 'default' })
 
-    return {
-      article,
-      prev,
-      next,
-    };
-  },
-};
+const { $route } = useNuxtApp() as any
+const slug = $route.params.slug
+
+if (slug === 'undefined' || !slug) {
+  throw createError({ statusCode: 404, message: 'Page Not Found' })
+}
+
+const { data: article } = await useAsyncData(`product-${slug}`, async () => {
+  const content = await useContent()
+  return await content.findOne('product', slug)
+})
+
+const { data: surroundData } = await useAsyncData(`product-surround-${slug}`, async () => {
+  const content = await useContent()
+  return await content.getCollection('product').surround(slug, {
+    fields: ['title', 'slug']
+  }).find()
+})
+
+const prev = surroundData.value?.[0] || null
+const next = surroundData.value?.[1] || null
 </script>

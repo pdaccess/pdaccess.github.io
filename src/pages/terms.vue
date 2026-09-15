@@ -2,27 +2,20 @@
   <Section :full="true">
     <div class="container box">
       <div class="content is-medium">
-        <nuxt-content :document="article" />
+        <NuxtContent :document="article" />
       </div>
     </div>
   </Section>
 </template>
-<script>
-import Section from "@/components/Section";
 
-export default {
-  name: "terms",
-  layout: "main",
-  components: {
-    Section,
-  },
-  async asyncData({ $content }) {
-    const article = await $content("legal", "terms_and_conditions").fetch();
+<script setup lang="ts">
+import { useAsyncData } from '#app'
+import Section from '~/components/Section.vue'
 
-    console.log(article);
-    return {
-      article,
-    };
-  },
-};
+definePageMeta({ layout: 'default' })
+
+const { data: article } = await useAsyncData('terms', async () => {
+  const content = await useContent()
+  return await content.findOne('legal', 'terms_and_conditions')
+})
 </script>

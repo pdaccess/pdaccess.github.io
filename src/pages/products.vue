@@ -1,7 +1,7 @@
 <template>
   <div>
     <Section>
-      <template slot="head">
+      <template #head>
         <div class="columns">
           <div class="column">
             <div class="section-heading has-text-centered">
@@ -16,9 +16,9 @@
         </div>
       </template>
       <div class="columns">
-        <div class="column" v-for="(page, index) in pages" v-bind:key="index">
+        <div class="column" v-for="(page, index) in pages" :key="index">
           <NuxtLink
-            :to="{ name: 'product-slug', params: { slug: page.slug } }"
+            :to="`/product/${page.slug}`"
             class="text-primary hover:underline"
           >
             <div class="card has-background-primary is-dark">
@@ -26,19 +26,14 @@
                 <div class="media">
                   <div class="media-left">
                     <figure class="image is-64x64">
-                      <img
-                        :src="require('@/assets/logos/pdaccess_white_logo.png')"
-                        alt="PDAccess Image"
-                      />
+                      <img src="@/assets/logos/pdaccess_white_logo.png" alt="PDAccess Image" />
                     </figure>
                   </div>
                   <div class="media-content">
                     <p class="subtitle">{{ page.title }}</p>
                   </div>
                 </div>
-                <div class="content">
-                  {{ page.description }}
-                </div>
+                <div class="content">{{ page.description }}</div>
               </div>
             </div>
           </NuxtLink>
@@ -67,32 +62,16 @@
     </section>
   </div>
 </template>
-<script>
-import Section from "@/components/Section";
-import Price from "@/views/Price";
 
-export default {
-  name: "Products",
-  layout: "main",
-  components: {
-    Section,
-    Price,
-  },
-  mounted() {
-    this.$tracking();
-  },
-  head() {
-    return {
-      title: "PDAccess - Products",
-    };
-  },
-  async asyncData({ $content }) {
-    const pages = await $content("product").fetch();
+<script setup lang="ts">
+import { useAsyncData } from '#app'
+import Section from '~/components/Section.vue'
+import Price from '~/views/Price.vue'
 
-    console.log(pages);
-    return {
-      pages,
-    };
-  },
-};
+definePageMeta({ layout: 'default' })
+
+const { data: pages } = await useAsyncData('products', async () => {
+  const content = await useContent()
+  return await content.getCollection('product').find()
+})
 </script>

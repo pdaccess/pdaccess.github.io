@@ -1,105 +1,91 @@
 <template>
-  <section class="section pricing is-medium is-success" id="pricing">
-    <div class="pricing-table">
-      <div
-        class="pricing-plan"
-        @mouseover="hover0 = true"
-        @mouseleave="hover0 = false"
-        v-bind:class="{ 'is-active': hover0 }"
-      >
-        <div class="plan-header">Teams</div>
-        <div class="plan-price"></div>
-        <div class="plan-items">
-          <div class="plan-item">
-            Monthly Charge (Annual option is possible)
-          </div>
-          <div class="plan-item">0 - 5 Member</div>
-          <div class="plan-item">
-            Central Access Management with Secure Connectivity
-          </div>
-          <div class="plan-item">Terminal Proxy (SSH, Telnet, RDP, VNC)</div>
-          <div class="plan-item">
-            Database Proxy (Oracle, PostgreSQL, MSSQL, MySQL)
-          </div>
-          <div class="plan-item">Activity Monitor</div>
-          <div class="plan-item">Desktop Client (Mac, Win, Linux)</div>
-          <div class="plan-item">Military Grade Vault</div>
-        </div>
-        <div class="plan-footer">
-          <button class="button is-fullwidth" @click="routeToContact">
-            Choose
-          </button>
+  <div class="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+    <div
+      v-for="(plan, index) in plans"
+      :key="index"
+      class="card overflow-hidden transition-all duration-300 hover:scale-105"
+      :class="{ 'ring-2 ring-primary-500': hovered === index }"
+      @mouseenter="hovered = index"
+      @mouseleave="hovered = -1"
+    >
+      <div class="p-6" :class="plan.headerClass">
+        <h3 class="text-2xl font-bold text-white">{{ plan.name }}</h3>
+      </div>
+      <div class="px-6 pb-4">
+        <p class="text-dark-400 text-sm">{{ plan.priceText }}</p>
+      </div>
+      <div class="px-6 pb-6 space-y-3">
+        <div v-for="(item, i) in plan.items" :key="i" class="flex items-start space-x-2">
+          <font-awesome-icon :icon="['fas', 'check']" class="text-green-400 mt-1 w-4 flex-shrink-0" />
+          <span class="text-dark-300 text-sm">{{ item }}</span>
         </div>
       </div>
-
-      <div
-        class="pricing-plan is-warning"
-        @mouseover="hover1 = true"
-        @mouseleave="hover1 = false"
-        v-bind:class="{ 'is-active': hover1 }"
-      >
-        <div class="plan-header">Startups</div>
-        <div class="plan-price"></div>
-        <div class="plan-items">
-          <div class="plan-item">
-            Monthly Charge (Annual option is possible)
-          </div>
-          <div class="plan-item">5 - 20 Member</div>
-          <div class="plan-item">Video Record For Sessions</div>
-          <div class="plan-item">Time Based Access</div>
-          <div class="plan-item">Time window Access</div>
-          <div class="plan-item">Policy Enforcement for Sessions</div>
-          <div class="plan-item">Oauth2 Idp Provider</div>
-          <div class="plan-item">API Support</div>
-        </div>
-        <div class="plan-footer">
-          <button class="button is-fullwidth" @click="routeToContact">
-            Choose
-          </button>
-        </div>
-      </div>
-      <div
-        class="pricing-plan is-danger"
-        @mouseover="hover3 = true"
-        @mouseleave="hover3 = false"
-        v-bind:class="{ 'is-active': hover3 }"
-      >
-        <div class="plan-header">Enterprises</div>
-        <div class="plan-price"></div>
-        <div class="plan-items">
-          <div class="plan-item">On-Prem install</div>
-          <div class="plan-item">Native Terminal & Database Proxy</div>
-          <div class="plan-item">Hardened Linux Agent</div>
-          <div class="plan-item">LDAP Proxy</div>
-            <div class="plan-item">IAM Integration (LDAP)</div>
-          <div class="plan-item">Geo Based Access</div>
-          <div class="plan-item">Automation (Beta)</div>
-          <div class="plan-item">SAML IdS Provider (Beta)</div>
-        </div>
-        <div class="plan-footer">
-          <button class="button is-fullwidth" @click="routeToContact">
-            Choose
-          </button>
-        </div>
+      <div class="px-6 pb-6">
+        <button class="btn w-full" :class="plan.buttonClass" @click="routeToContact">
+          Choose Plan
+        </button>
       </div>
     </div>
-  </section>
+  </div>
 </template>
-<script>
-export default {
-  name: "price",
-  data() {
-    return {
-      hover0: false,
-      hover1: false,
-      hover2: false,
-      hover3: false,
-    };
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const hovered = ref(-1)
+
+const plans = [
+  {
+    name: 'Teams',
+    priceText: 'Monthly Charge (Annual option is possible)',
+    items: [
+      '0 - 5 Members',
+      'Central Access Management with Secure Connectivity',
+      'Terminal Proxy (SSH, Telnet, RDP, VNC)',
+      'Database Proxy (Oracle, PostgreSQL, MSSQL, MySQL)',
+      'Activity Monitor',
+      'Desktop Client (Mac, Win, Linux)',
+      'Military Grade Vault',
+    ],
+    headerClass: 'bg-gradient-to-r from-blue-600 to-blue-800',
+    buttonClass: 'btn-outline',
   },
-  methods: {
-    routeToContact() {
-      this.$router.push({ name: "contacts" });
-    },
+  {
+    name: 'Startups',
+    priceText: 'Monthly Charge (Annual option is possible)',
+    items: [
+      '5 - 20 Members',
+      'Video Record For Sessions',
+      'Time Based Access',
+      'Time window Access',
+      'Policy Enforcement for Sessions',
+      'Oauth2 Idp Provider',
+      'API Support',
+    ],
+    headerClass: 'bg-gradient-to-r from-amber-600 to-amber-800',
+    buttonClass: 'btn-primary',
   },
-};
+  {
+    name: 'Enterprises',
+    priceText: 'Custom pricing available',
+    items: [
+      'On-Prem install',
+      'Native Terminal & Database Proxy',
+      'Hardened Linux Agent',
+      'LDAP Proxy',
+      'IAM Integration (LDAP)',
+      'Geo Based Access',
+      'Automation (Beta)',
+      'SAML IdS Provider (Beta)',
+    ],
+    headerClass: 'bg-gradient-to-r from-red-600 to-red-800',
+    buttonClass: 'btn-accent',
+  },
+]
+
+function routeToContact() {
+  router.push('/contacts')
+}
 </script>

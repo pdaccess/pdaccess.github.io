@@ -2,12 +2,12 @@
   <Section class="section has-background-light">
     <div class="fixed-grid has-2-cols">
       <div class="grid is-gap-2">
-        <div class="cell" v-for="(page, index) in pages" v-bind:key="index">
+        <div class="cell" v-for="(page, index) in pages" :key="index">
           <div class="card is-one-quarter has-background-primary">
-            <NuxtLink :to="{ name: 'blog-slug', params: { slug: page.slug } }" class="font-bold hover:underline">
+            <NuxtLink :to="`/blog/${page.slug}`" class="font-bold hover:underline">
               <div class="card-image" v-if="page.image">
                 <figure class="image is-64x64">
-                  <img :src="require(`@/assets${page.image}`)" alt="Image" />
+                  <img :src="`/uploads/blog/${page.image}`" alt="Image" />
                 </figure>
               </div>
               <div class="card-content">
@@ -23,34 +23,16 @@
     </div>
   </Section>
 </template>
-<script>
-import Section from "@/components/Section";
 
-export default {
-  name: "Blogs",
-  layout: "main",
-  transition: "fade",
-  scrollToTop: true,
-  components: {
-    Section,
-  },
-  mounted() {
-    this.$tracking();
-  },
-  head() {
-    return {
-      title: "PDAccess - Blogs",
-    };
-  },
-  async asyncData({ $content }) {
-    const pages = await $content("blog").
-      sortBy("time", "desc").
-      fetch();
+<script setup lang="ts">
+import { useAsyncData } from '#app'
+import Section from '~/components/Section.vue'
 
-    console.log(pages);
-    return {
-      pages,
-    };
-  },
-};
+definePageMeta({ layout: 'default', transition: 'fade' })
+
+const { data: pages } = await useAsyncData('blogs', async () => {
+  const content = await useContent()
+  const blogPosts = await content.getCollection('blog').find()
+  return blogPosts.sort((a, b) => (b.time || 0) - (a.time || 0))
+})
 </script>
