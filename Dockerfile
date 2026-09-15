@@ -1,20 +1,19 @@
-FROM node:10-alpine as builder
+FROM node:22-alpine AS build
 
-COPY . /src
-WORKDIR /src
+WORKDIR /app
 
-RUN yarn install
-RUN yarn run generate
+COPY package*.json ./
+RUN npm install
 
-FROM nginx:1.14-alpine
+COPY . .
+RUN npm run build
+RUN npm run generate
 
-#ADD app.tar.gz /usr/share/nginx/html
-COPY --from=builder /src/dist /app
-#RUN tar  app.tar.gz /app 
-#ADD ssl /app/ssl
+FROM nginx:alpine
 
-RUN chown -R nginx /app
-#RUN cp /app/dispatcher.app.conf /etc/nginx/nginx.conf
-ADD pdaccess.app.conf /etc/nginx/nginx.conf
+COPY --from=build /app/.output/public /app
+COPY pdaccess.app.conf /etc/nginx/conf.d/default.conf
 
-#CMD ["nginx", "-c", "/app/cs.app.conf"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
