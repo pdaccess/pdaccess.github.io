@@ -14,7 +14,7 @@ Linux (or UNIX) systems are very flexible environments. Hence most of the clouds
 - Linux Host Security with PDAccess Linux Agent offers most advanced solutions.
 - REDHAT, Oracle, CENTOS and Ubuntu agents. (x86, x86_64)
 - PDAccess Linux Agent provides the safest environment,
-- Authentication users managed by PDAccess. Also with Active Directory?
+- Authentication users managed by PDAccess. Also with Active Directory.
 - Authorization (sudo commands)
 - Accounting, all commands are logged (even inside sh scripts)
 

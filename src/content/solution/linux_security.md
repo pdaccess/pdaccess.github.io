@@ -10,4 +10,4 @@ author:
 
 ## Linux Security
 
-Nowadays, cloud is the king of all platforms. It means there is a lot of linux host is running on clouds.
+Nowadays, cloud is the king of all platforms. It means there are a lot of linux hosts running on clouds.

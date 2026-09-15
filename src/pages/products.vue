@@ -8,7 +8,7 @@
               <h3 class="title is-2 text-gray">Enterprise Features</h3>
               <h4 class="subtitle is-5 text-gray">
                 You can choose your package with support. You will find
-                subscription or annualy support packages. For details:
+                subscription or annually support packages. For details:
                 <a href="mailto:sales@pdaccess.com">sales@pdaccess.com</a>
               </h4>
             </div>

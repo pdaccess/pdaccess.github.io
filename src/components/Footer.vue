@@ -13,8 +13,8 @@
                 </div>
                 <div class="column is-full">
                   <h3 class="has-text-left subtitle is-6">
-                    PDAccess is a Privleged Access Security and Identity Access
-                    Management Software for both cloud and on-perm usage
+                    PDAccess is a Privileged Access Security and Identity Access
+                    Management Software for both cloud and on-prem usage
                   </h3>
                 </div>
                 <!-- <div class="column is-full">
@@ -106,20 +106,20 @@
                   <div class="tile is-parent is-vertical">
                     <div class="tags">
                       <span class="tag is-danger is-light">
-                        Privileged Access Magement</span>
+                        Privileged Access Management</span>
                       <span class="tag is-danger is-light">
-                        Cloud Access Securiy</span>
+                        Cloud Access Security</span>
                       <span class="tag is-danger is-light">
-                        Password Maintanence</span>
+                        Password Maintenance</span>
                       <span class="tag is-danger is-light">
                         Identity Access Management</span>
                       <span class="tag is-danger is-light"> Open Source</span>
                       <span class="tag is-danger is-light">
                         Shared Password Management</span>
                       <span class="tag is-danger is-light">
-                        Application to Application Password Maangement</span>
+                        Application to Application Password Management</span>
                       <span class="tag is-danger is-light">
-                        Passwordless connectiviy</span>
+                        Passwordless connectivity</span>
                       <span class="tag is-danger is-light">
                         Password Vault</span>
                     </div>

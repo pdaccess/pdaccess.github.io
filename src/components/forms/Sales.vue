@@ -10,8 +10,8 @@
           <div class="mauticform-page-wrapper mauticform-page-1" data-mautic-form-page="1">
 
             <div id="mauticform_pdaccesssalesform_fist_name" class="mauticform-row mauticform-text mauticform-field-1">
-                <label id="mauticform_label_pdaccesssalesform_fist_name" for="mauticform_input_pdaccesssalesform_fist_name" class="mauticform-label">Fist Name</label>
-                <input id="mauticform_input_pdaccesssalesform_fist_name" name="mauticform[fist_name]" value="" class="mauticform-input" type="text">
+                <label id="mauticform_label_pdaccesssalesform_first_name" for="mauticform_input_pdaccesssalesform_first_name" class="mauticform-label">First Name</label>
+                <input id="mauticform_input_pdaccesssalesform_first_name" name="mauticform[first_name]" value="" class="mauticform-input" type="text">
                 <span class="mauticform-errormsg" style="display: none;"></span>
             </div>
 

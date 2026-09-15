@@ -4,7 +4,7 @@
       <div class="container has-text-centered">
         <br />
         <h4 class="title is-1">
-          Join our team with Cyber Security and Software Expertice
+          Join our team with Cyber Security and Software Expertise
         </h4>
 
         <div class="columns">

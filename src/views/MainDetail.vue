@@ -10,7 +10,7 @@
         <div class="section-heading has-text-centered">
           <h3 class="title is-2 text-gray">References & Partners</h3>
           <h4 class="subtitle is-5 text-gray">
-            We are working with reputble companies and partners which are the
+            We are working with reputable companies and partners which are the
             best in their fields
           </h4>
         </div>
@@ -80,7 +80,7 @@
         </div>
       </div>
     </section>
-    <section class="hero is-meduim">
+    <section class="hero is-medium">
       <nav class="level mt-20 has-background-white">
         <div class="level-item has-text-centered">
           <div>
@@ -107,7 +107,7 @@
 
         <div class="level-item has-text-centered">
           <div>
-            <p class="title text-gray">Platfroms</p>
+            <p class="title text-gray">Platforms</p>
             <p class="heading text-gray">Mac, Linux,</p>
             <p class="heading text-gray">Windows</p>
 
@@ -119,8 +119,8 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="title text-gray">Vault</p>
-            <p class="heading text-gray mb-10">Millitary level Vault</p>
-            <p class="heading text-gray mb-10">for sensetive Data storage</p>
+            <p class="heading text-gray mb-10">Military level Vault</p>
+            <p class="heading text-gray mb-10">for sensitive Data storage</p>
             <figure class="image is-inline-block is-96x96">
               <img :src="require(`@/assets/animations/696-padlock-tick.gif`)" />
             </figure>
@@ -208,11 +208,11 @@ export default {
         },
         {
           title: "Cloud Providers - Public or On-prem",
-          desc: "AWS, Azure, GCP. Any other cloud platform which is has a protocol level access ",
+            desc: "AWS, Azure, GCP. Any other cloud platform which has a protocol level access ",
         },
         {
           title: "Vault",
-          desc: "Military grade, encrypted store.All sensetive data is stored here.",
+            desc: "Military grade, encrypted store. All sensitive data is stored here.",
         },
         {
           title: "Passwordless Connectivity",
@@ -223,24 +223,24 @@ export default {
           desc: "From UI or sharing links",
         },
         {
-          title: "Credentails Management",
-          desc: "You can share credentails with permission: can_see_password",
+          title: "Credentials Management",
+            desc: "You can share credentials with permission: can_see_password",
         },
         {
-          title: "Credentails Management 2",
-          desc: "Each credentials has 2 mode: break the glass and check-in check-out mode",
+          title: "Credentials Management 2",
+            desc: "Each credentials has 2 modes: break the glass and check-in check-out mode",
         },
         {
           title: "Application to Application Password Management",
-          desc: "Share links with rest calls. supported formats: json, csv, xml. Can be integrated infitive application.",
+            desc: "Share links with rest calls. supported formats: json, csv, xml. Can be integrated infinite application.",
         },
         {
-          title: "Developer integratons - DevSecOps",
-          desc: "rest call and cli applicaton. Also, cli application can connect using your favorite application (putty, mstsc etc.)",
+          title: "Developer integrations - DevSecOps",
+            desc: "rest call and cli application. Also, cli application can connect using your favorite application (putty, mstsc etc.)",
         },
         {
           title: "Group Management",
-          desc: "Group all credentials, service etc. together and all mangement made in groups.",
+            desc: "Group all credentials, service etc. together and all management made in groups.",
         },
         {
           title: "MFA",
@@ -248,19 +248,19 @@ export default {
         },
         {
           title: "Alarms",
-          desc: "System wide activites (proxy and logging) regex based and group Managed",
+            desc: "System wide activities (proxy and logging) regex based and group Managed",
         },
         {
           title: "Notifcation",
-          desc: "Controllered by every credentials, group and services. Also user based configuration",
+            desc: "Controlled by every credentials, group and services. Also user based configuration",
         },
         {
           title: "Deployment Os",
-          desc: "Linux servers. Centos, Redhat, Ubuntu. ec2 instances or compute enginees.",
+            desc: "Linux servers. Centos, Redhat, Ubuntu. ec2 instances or compute engines.",
         },
 
         {
-          title: "Deployment Envoriment",
+          title: "Deployment Environment",
           desc: "Docker or Docker-compose for easy to use. Kubernetes or Openshift Supported",
         },
       ],

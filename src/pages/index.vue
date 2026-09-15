@@ -5,7 +5,6 @@
         <h2 class="title is-2">Open-Source Privileged Access Management</h2>
         <h4 class="subtitle is-5">
           PDAccess offers compliant agile, secure and next generation <b>PAM&IAM</b> solution
-          PDAccess offers compliant agile, secure and next generation <b>PAM&IAM</b> solution
           for <b>CLOUDS</b> and <b>ON-PREM</b> environments
         </h4>
         <div class="subtitle tags">
@@ -50,7 +49,7 @@
                     </div>
                     <div class="field">
                       <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="email" v-model="firstName" placeholder="Fist Name" />
+                        <input class="input" type="email" v-model="firstName" placeholder="First Name" />
                         <span class="icon is-small is-left">
                           <font-awesome-icon :icon="['fa', 'user']" />
                         </span>
@@ -260,7 +259,7 @@ export default {
             this.email = null;
             this.showEmail = !this.showEmail;
             this.emailText = "Check your email!";
-            window.location = "https://www.pdacess.com/thanks"
+            window.location = "https://www.pdaccess.com/thanks"
           })
           .catch((err) => {
             console.log(err);

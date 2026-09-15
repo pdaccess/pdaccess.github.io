@@ -55,9 +55,9 @@
 
         <div class="tile is-parent is-vertical">
           <article class="tile is-child card notification is-info is-light">
-            <p class="title">You have seemless connection</p>
+            <p class="title">You have seamless connection</p>
             <p class="subtitle">
-              PDAccess offers a highly protected and seemless connection With
+              PDAccess offers a highly protected and seamless connection With
               PDAccess’s advanced features you will enjoy the cross cloud
               connection which connects your cloud resources with just one
               click.

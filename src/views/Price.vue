@@ -19,7 +19,7 @@
           </div>
           <div class="plan-item">Terminal Proxy (SSH, Telnet, RDP, VNC)</div>
           <div class="plan-item">
-            Database Proxy (Oracle, Postgresl, MSSQL, Mysql)
+            Database Proxy (Oracle, PostgreSQL, MSSQL, MySQL)
           </div>
           <div class="plan-item">Activity Monitor</div>
           <div class="plan-item">Desktop Client (Mac, Win, Linux)</div>
@@ -71,7 +71,7 @@
           <div class="plan-item">Native Terminal & Database Proxy</div>
           <div class="plan-item">Hardened Linux Agent</div>
           <div class="plan-item">LDAP Proxy</div>
-          <div class="plan-item">IAM Entegration (LDAP)</div>
+            <div class="plan-item">IAM Integration (LDAP)</div>
           <div class="plan-item">Geo Based Access</div>
           <div class="plan-item">Automation (Beta)</div>
           <div class="plan-item">SAML IdS Provider (Beta)</div>

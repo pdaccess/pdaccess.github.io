@@ -2,7 +2,7 @@
   <Section :full="true">
     <div class="container has-text-centered">
       <h4 class="title is-1">
-        PDAccess Team is ready for answer
+        PDAccess Team is ready to answer
       </h4>
       <div class="columns mt-small">
         <div class="column is-one-third has-text-right">

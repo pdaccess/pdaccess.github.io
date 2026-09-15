@@ -10,4 +10,4 @@ author:
 
 ## Network Security
 
-Network devices has many features. It has central point for all infrastructure. But these device has limited capacity of management and authentication features.
+Network devices have many features. It has central point for all infrastructure. But these devices have limited capacity of management and authentication features.

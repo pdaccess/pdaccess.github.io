@@ -30,7 +30,7 @@
           </nuxt-link>
 
           <nuxt-link class="navbar-item" to="/sales/">
-            <strong :class="[{ 'text-white': !isFixed }, { 'text-black': isFixed }]">Questions ?</strong>
+            <strong :class="[{ 'text-white': !isFixed }, { 'text-black': isFixed }]">Questions?</strong>
           </nuxt-link>
         </div>
 
@@ -52,7 +52,7 @@
           </nuxt-link>
           <a class="navbar-item" href="https://app.pdaccess.com">
             <span class="tag is-medium is-info has-tooltip-bottom is-dark"
-              data-tooltip="Login cloud system of pdaccess. Please contact us for credentials">
+              data-tooltip="Login to the PDAccess cloud system. Please contact us for credentials">
               <strong :class="[{ 'text-white': !isFixed }, { 'text-black': isFixed }]">Login Cloud</strong>
             </span>
           </a>

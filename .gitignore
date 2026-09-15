@@ -20,3 +20,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright outputs
+.playwright-mcp/
+.codebase-memory/
