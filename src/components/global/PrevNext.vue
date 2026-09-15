@@ -1,20 +1,19 @@
 <template>
-  <ul>
+  <ul class="flex space-x-4">
     <li>
       <NuxtLink
         v-if="prev"
-        :to="{ name: base, params: { slug: prev.slug } }"
+        :to="`/${base}/${prev.slug}`"
         class="text-primary font-bold hover:underline"
       >
         {{ prev.title }}
       </NuxtLink>
-
       <span v-else>&nbsp;</span>
     </li>
     <li>
       <NuxtLink
         v-if="next"
-        :to="{ name: base, params: { slug: next.slug } }"
+        :to="`/${base}/${next.slug}`"
         class="font-bold hover:underline"
       >
         {{ next.title }}
@@ -23,21 +22,11 @@
     </li>
   </ul>
 </template>
-<script>
-export default {
-  props: {
-    prev: {
-      type: Object,
-      default: () => null,
-    },
-    next: {
-      type: Object,
-      default: () => null,
-    },
-    base: {
-      type: String,
-      default: () => null,
-    },
-  },
-};
+
+<script setup lang="ts">
+defineProps<{
+  prev?: { slug: string; title: string } | null
+  next?: { slug: string; title: string } | null
+  base: string
+}>()
 </script>
