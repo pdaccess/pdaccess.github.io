@@ -1,10 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  srcDir: 'src/',
   ssr: false,
   target: 'static',
 
   app: {
+    baseURL: '/',
     head: {
       title: 'PDAccess, Next Generation Privileged Access Management',
       meta: [
@@ -42,13 +42,6 @@ export default defineNuxtConfig({
           type: 'image/x-icon',
           href: '/favicon/favicon.ico'
         }
-      ],
-      script: [
-        {
-          hid: 'gdpr',
-          src: 'https://m.pdaccess.com/focus/2.js',
-          defer: true
-        }
       ]
     }
   },
@@ -58,19 +51,65 @@ export default defineNuxtConfig({
     '~/assets/css/global.css'
   ],
 
-  plugins: [],
 
-  components: true,
+  components: [
+    {
+      path: '~/components',
+      global: true
+    },
+    {
+      path: '~/components/ui',
+      prefix: 'Ui',
+    },
+    {
+      path: '~/components/ui/card',
+      prefix: ''
+    },
+    {
+      path: '~/components/ui/badge',
+      prefix: ''
+    },
+    {
+      path: '~/components/ui/tabs',
+      prefix: ''
+    },
+    {
+      path: '~/components/ui/accordion',
+      prefix: ''
+    },
+    {
+      path: '~/components/ui/switch',
+      prefix: ''
+    },
+    {
+      path: '~/components/ui/progress',
+      prefix: ''
+    },
+    {
+      path: '~/components/ui/table',
+      prefix: ''
+    },
+    {
+      path: '~/components/ui/navigation-menu',
+      prefix: ''
+    },
+  ],
 
   modules: [
     '@nuxt/content',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxt/image'
   ],
 
   content: {
+    ignore: [],
     markdown: {
       remarkPlugins: []
-    }
+    },
+    experimental: {
+      search: false
+    },
+    highlight: false
   },
 
   runtimeConfig: {
@@ -79,5 +118,41 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2024-01-01'
+  compatibilityDate: '2024-01-01',
+
+  experimental: {
+    appManifest: false,
+    payloadExtraction: false
+  },
+
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {}
+    }
+  },
+
+  vite: {
+    optimizeDeps: {
+      exclude: ['@nuxt/content']
+    }
+  },
+
+  build: {
+    assetsDir: '_nuxt'
+  },
+  nitro: {
+    storage: {
+      data: {
+        driver: 'fs',
+        base: './.nitro/data'
+      }
+    }
+  },
+
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag: string) => tag === 'font-awesome-icon'
+    }
+  },
 })
