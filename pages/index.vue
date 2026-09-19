@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'landing'
+})
+
 import { ref, onMounted, onUnmounted } from 'vue'
 
 // Terminal mockup state
