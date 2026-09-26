@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   target: 'static',
 
   app: {
@@ -58,6 +58,10 @@ export default defineNuxtConfig({
       global: true
     },
     {
+      path: '~/components/icons',
+      global: true
+    },
+    {
       path: '~/components/ui',
       prefix: 'Ui',
     },
@@ -90,6 +94,10 @@ export default defineNuxtConfig({
       prefix: ''
     },
     {
+      path: '~/components/ui/button',
+      prefix: ''
+    },
+    {
       path: '~/components/ui/navigation-menu',
       prefix: ''
     },
@@ -107,6 +115,7 @@ export default defineNuxtConfig({
       remarkPlugins: []
     },
     experimental: {
+      clientDB: true,
       search: false
     },
     highlight: false
@@ -119,6 +128,10 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-01-01',
+
+  layout: {
+    // Layouts are automatically registered from the layouts/ directory
+  },
 
   experimental: {
     appManifest: false,

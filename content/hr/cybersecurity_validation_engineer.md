@@ -1,10 +1,6 @@
 ---
 title: PDAccess Linux Host Security
-description: PDAccess - Linux Host Security Module Description
-author:
-  name: pdaccess Team
-  bio: pdaccess Team
-  image: https://beta.pdaccess.com/_nuxt/src/assets/logos/pdaccess_black.png
+description: Cybersecurity Validation Engineer — STEM graduate, Agile, remote options available
 ---
 
 # Cybersecurity Validation Engineer

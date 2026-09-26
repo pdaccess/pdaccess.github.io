@@ -4,6 +4,14 @@ definePageMeta({
 })
 
 import { ref, onMounted, onUnmounted } from 'vue'
+import AwsIcon from '~/components/icons/AwsIcon.vue'
+import AzureIcon from '~/components/icons/AzureIcon.vue'
+import GcpIcon from '~/components/icons/GcpIcon.vue'
+import OnPremIcon from '~/components/icons/OnPremIcon.vue'
+
+// Client-only flag to avoid hydration mismatch
+const isClient = ref(false)
+onMounted(() => { isClient.value = true })
 
 // Terminal mockup state
 const terminalLines = ref<string[]>([])
@@ -86,64 +94,20 @@ const activeSessions = ref<Array<{ user: string; protocol: string; target: strin
   { user: 'ops@corp.com', protocol: 'LDAP', target: '10.0.0.5:389', duration: '3m', status: 'active' },
 ])
 
-// Navigation menu state
-const navActive = ref<string | null>(null)
 </script>
 
 <template>
   <div class="min-h-screen bg-[#0a0a0f] text-white">
-    <!-- Section 1: Global Navigation Bar -->
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#0a0a0f]/80 border-b border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-white" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-            </div>
-            <span class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">PDAccess</span>
-          </div>
-          <NavigationMenu v-model="navActive" class="hidden md:flex">
-            <NavigationMenuList class="gap-2">
-              <NavigationMenuItem>
-                <NavigationMenuTrigger class="bg-transparent text-slate-300 hover:text-white hover:bg-slate-800/50 border-0">Products</NavigationMenuTrigger>
-                <NavigationMenuContent class="bg-[#0a0a0f]/95 border-slate-800">
-                  <div class="grid gap-3 p-4 w-[300px]">
-                    <NavigationMenuLink><a href="#session-management" class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-800 hover:text-white"><div class="text-sm font-medium text-white">Session Management</div><p class="text-sm text-slate-400 line-clamp-2">Record, monitor and control privileged sessions across all environments.</p></a></NavigationMenuLink>
-                    <NavigationMenuLink><a href="#sapm-vault" class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-800 hover:text-white"><div class="text-sm font-medium text-white">SAPM Password Vault</div><p class="text-sm text-slate-400 line-clamp-2">Zero-knowledge credential proxy with automatic rotation.</p></a></NavigationMenuLink>
-                    <NavigationMenuLink><a href="#linux-audit" class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-800 hover:text-white"><div class="text-sm font-medium text-white">Linux Direct Audit</div><p class="text-sm text-slate-400 line-clamp-2">Full command-level audit trail for Linux infrastructure.</p></a></NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger class="bg-transparent text-slate-300 hover:text-white hover:bg-slate-800/50 border-0">Hybrid Cloud Support</NavigationMenuTrigger>
-                <NavigationMenuContent class="bg-[#0a0a0f]/95 border-slate-800">
-                  <div class="grid gap-3 p-4 w-[300px]">
-                    <NavigationMenuLink><a href="#multi-cloud" class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-800 hover:text-white"><div class="text-sm font-medium text-white">Multi-Cloud Bridge</div><p class="text-sm text-slate-400 line-clamp-2">Unified access across AWS, Azure, GCP and on-prem.</p></a></NavigationMenuLink>
-                    <NavigationMenuLink><a href="#protocols" class="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-800 hover:text-white"><div class="text-sm font-medium text-white">Protocol Support</div><p class="text-sm text-slate-400 line-clamp-2">SSH, RDP, VNC, SQL, LDAP and more.</p></a></NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a href="#compliance" class="text-slate-300 hover:text-white hover:bg-slate-800/50 border-0 rounded-md px-3 py-2 transition-colors">Compliance</a>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-          <div class="flex items-center gap-3">
-            <Button variant="ghost" class="text-slate-300 hover:text-white hover:bg-slate-800/50 border-0">Sign In</Button>
-            <Button class="bg-cyan-500 hover:bg-cyan-600 text-white border-0">Deploy One-Click Bridge</Button>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <!-- Section 2: Hero Section -->
+    <!-- Header Navigation -->
+    <Header />
+
+    <!-- Hero Section -->
     <section class="relative pt-32 pb-20 overflow-hidden">
       <div class="absolute inset-0 bg-grid opacity-20"></div>
       <div class="absolute inset-0 bg-gradient-radial from-cyan-500/10 via-transparent to-transparent animate-glow-pulse"></div>
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-4xl mx-auto">
-          <Badge class="mb-6 border-cyan-500/30 text-cyan-400 bg-cyan-500/10">Vaultless &amp; Open-Source PAM</Badge>
+          <Badge class="mb-6 border-cyan-500/30 text-cyan-400 bg-cyan-500/10">Zero-Knowledge PAM &amp; Open-Source</Badge>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-balance leading-tight mb-6">
             One Click to Bridge Any Cloud Asset.
             <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Zero Trust Required.</span>
@@ -157,7 +121,7 @@ const navActive = ref<string | null>(null)
             <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800 px-8 py-6 text-base">View Documentation</Button>
           </div>
           <div class="max-w-3xl mx-auto">
-            <div class="rounded-xl border border-slate-800 bg-[#0d1117] overflow-hidden shadow-2xl shadow-cyan-500/5">
+            <div v-if="isClient" class="rounded-xl border border-slate-800 bg-[#0d1117] overflow-hidden shadow-2xl shadow-cyan-500/5">
               <div class="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-slate-800">
                 <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                 <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
@@ -167,6 +131,17 @@ const navActive = ref<string | null>(null)
               <div class="p-6 font-mono text-sm space-y-1 min-h-[280px]">
                 <div v-for="(line, index) in terminalLines" :key="index" class="text-green-400">{{ line }}</div>
                 <div v-if="isTyping" class="text-cyan-400"><span class="text-green-400">$ </span><span class="animate-pulse">&#9608;</span></div>
+              </div>
+            </div>
+            <div v-else class="rounded-xl border border-slate-800 bg-[#0d1117] overflow-hidden shadow-2xl shadow-cyan-500/5">
+              <div class="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-slate-800">
+                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                <span class="ml-2 text-xs text-slate-500 font-mono">pdaccess-terminal</span>
+              </div>
+              <div class="p-6 font-mono text-sm text-green-400 min-h-[280px] flex items-center">
+                <span>$ pdaccess connect --protocol ssh --target aws-prod-server-01</span>
               </div>
             </div>
           </div>
@@ -399,25 +374,22 @@ const navActive = ref<string | null>(null)
             <AccordionTrigger class="hover:no-underline text-white text-left">Can PDAccess integrate with our existing identity providers?</AccordionTrigger>
             <AccordionContent class="text-slate-400">Yes. PDAccess supports integration with major identity providers including Active Directory, Okta, Azure AD, Keycloak, and any SAML 2.0 or OIDC-compliant provider. LDAP and RADIUS authentication are also supported for legacy systems. Integration is configured through the admin dashboard with minimal setup required.</AccordionContent>
           </AccordionItem>
+          <AccordionItem value="item-4" class="bg-slate-900/50 border border-slate-800 rounded-lg px-4">
+            <AccordionTrigger class="hover:no-underline text-white text-left">Does PDAccess support on-premises deployment?</AccordionTrigger>
+            <AccordionContent class="text-slate-400">Yes. PDAccess offers on-premises deployment for enterprises that require data residency and full infrastructure control. The on-premises version includes all features of the cloud-hosted platform, with dedicated installation support, configuration assistance, and ongoing maintenance options.</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-5" class="bg-slate-900/50 border border-slate-800 rounded-lg px-4">
+            <AccordionTrigger class="hover:no-underline text-white text-left">How does PDAccess handle credential rotation?</AccordionTrigger>
+            <AccordionContent class="text-slate-400">PDAccess automatically rotates credentials on configurable schedules — daily, weekly, monthly, or quarterly. When a rotation occurs, the platform generates a new strong password, updates it on the destination system (Linux, Windows, database, network device), updates the stored credential, and notifies authorized users. The user never sees or touches the password — credentials are injected automatically into sessions.</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-6" class="bg-slate-900/50 border border-slate-800 rounded-lg px-4">
+            <AccordionTrigger class="hover:no-underline text-white text-left">What systems and protocols are supported?</AccordionTrigger>
+            <AccordionContent class="text-slate-400">PDAccess supports SSH, RDP, VNC, Telnet, Terminal, and SQL database connections. It works with Linux/Unix (RHEL, CentOS, Ubuntu, Debian, SUSE, Oracle), Windows servers, PostgreSQL, MySQL, Oracle, SQL Server, MongoDB, Redis, network devices (Cisco, Huawei), and cloud platforms (AWS, Azure, GCP). The Linux Agent provides per-user authentication and command-level authorization for all Linux infrastructure.</AccordionContent>
+          </AccordionItem>
         </Accordion>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-800 py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-2">
-            <div class="w-6 h-6 rounded bg-gradient-to-br from-cyan-500 to-blue-600"></div>
-            <span class="text-sm text-slate-400">&copy; 2026 PDAccess. All rights reserved.</span>
-          </div>
-          <div class="flex items-center gap-6 text-sm text-slate-400">
-            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" class="hover:text-white transition-colors">Documentation</a>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
