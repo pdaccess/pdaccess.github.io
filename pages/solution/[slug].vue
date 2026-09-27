@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useFetch } from '#app'
-import Badge from '@/components/ui/badge/Badge.vue'
-import Button from '@/components/ui/button/Button.vue'
 import PrevNext from '@/components/global/PrevNext.vue'
 
 definePageMeta({

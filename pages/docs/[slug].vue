@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import Badge from '@/components/ui/badge/Badge.vue'
-import Button from '@/components/ui/button/Button.vue'
 
 const route = useRoute()
 const slug = route.params.slug as string

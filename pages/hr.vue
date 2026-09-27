@@ -4,12 +4,6 @@ definePageMeta({
 })
 
 import { useFetch } from '#app'
-import Badge from '@/components/ui/badge/Badge.vue'
-import Card from '@/components/ui/card/Card.vue'
-import CardHeader from '@/components/ui/card/CardHeader.vue'
-import CardTitle from '@/components/ui/card/CardTitle.vue'
-import CardDescription from '@/components/ui/card/CardDescription.vue'
-import Button from '@/components/ui/button/Button.vue'
 import CvForm from '~/components/forms/CVForm.vue'
 
 const route = useRoute()

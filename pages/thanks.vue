@@ -3,8 +3,6 @@ definePageMeta({
   layout: 'landing'
 })
 
-import Badge from '@/components/ui/badge/Badge.vue'
-import Button from '@/components/ui/button/Button.vue'
 
 useHead({
   title: 'Thank You - PDAccess',

@@ -3,12 +3,6 @@ definePageMeta({
   layout: 'landing'
 })
 
-import Badge from '@/components/ui/badge/Badge.vue'
-import Card from '@/components/ui/card/Card.vue'
-import CardHeader from '@/components/ui/card/CardHeader.vue'
-import CardTitle from '@/components/ui/card/CardTitle.vue'
-import CardDescription from '@/components/ui/card/CardDescription.vue'
-import Button from '@/components/ui/button/Button.vue'
 import ContactForm from '~/components/forms/ContactForm.vue'
 
 useHead({
@@ -65,17 +59,19 @@ useHead({
               </div>
             </div>
           </div>
-          <div>
-            <Card class="bg-slate-900/50 border-slate-800">
-              <CardHeader>
-                <CardTitle class="text-white">Send us a Message</CardTitle>
-                <CardDescription class="text-slate-400">We'll get back to you within 24 hours</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ContactForm />
-              </CardContent>
-            </Card>
-          </div>
+      <div>
+        <ClientOnly>
+          <Card class="bg-slate-900/50 border-slate-800">
+            <CardHeader>
+              <CardTitle class="text-white">Send us a Message</CardTitle>
+              <CardDescription class="text-slate-400">We'll get back to you within 24 hours</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ContactForm />
+            </CardContent>
+          </Card>
+        </ClientOnly>
+      </div>
         </div>
       </div>
     </section>

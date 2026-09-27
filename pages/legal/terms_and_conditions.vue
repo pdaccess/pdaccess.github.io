@@ -4,8 +4,6 @@ definePageMeta({
 })
 
 import { useFetch } from '#app'
-import Badge from '@/components/ui/badge/Badge.vue'
-import Button from '@/components/ui/button/Button.vue'
 
 const { data: article } = await useFetch('/api/content/terms', {
   key: 'legal-terms'

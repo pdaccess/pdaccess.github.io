@@ -4,8 +4,6 @@ definePageMeta({
 })
 
 import { computed } from 'vue'
-import Badge from '@/components/ui/badge/Badge.vue'
-import Button from '@/components/ui/button/Button.vue'
 import PrevNext from '@/components/global/PrevNext.vue'
 
 const route = useRoute()
