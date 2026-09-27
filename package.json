@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@nuxt/content": "^2.13.0",
+    "@playwright/test": "^1.63.0",
     "autoprefixer": "^10.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

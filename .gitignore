@@ -23,4 +23,8 @@ yarn-error.log*
 
 # Playwright outputs
 .playwright-mcp/
+.output/
+test-results/
+blogs-page.png
+solutions-page.png
 .codebase-memory/
