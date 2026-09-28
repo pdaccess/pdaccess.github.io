@@ -21,10 +21,32 @@ echo "Ingress:    ${INGRESS_HOST}"
 echo "Git SHA:    ${GIT_SHA}"
 echo "============================================"
 
+# ─── Step 0: Install nginx ingress controller if missing ───
+ensure_ingress() {
+    if kubectl get ingressclass nginx &>/dev/null && \
+       kubectl get pods -n ingress-nginx -l app.kubernetes.io/component=controller &>/dev/null; then
+        echo ""
+        echo "[0/5] nginx ingress controller already running."
+        return 0
+    fi
+
+    echo ""
+    echo "[0/5] Installing nginx ingress controller..."
+    helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx 2>/dev/null || true
+    helm repo update ingress-nginx 2>/dev/null || true
+    helm install ingress-nginx ingress-nginx/ingress-nginx \
+        --namespace ingress-nginx \
+        --create-namespace \
+        --set controller.service.type=NodePort \
+        --set controller.admissionWebhooks.enabled=false \
+        --wait --timeout 300s 2>/dev/null || true
+    echo "  nginx ingress controller installed."
+}
+
 # ─── Step 1: Build Docker image ───
 build_image() {
     echo ""
-    echo "[1/4] Building Docker image..."
+    echo "[1/5] Building Docker image..."
     docker build \
         -t "${REGISTRY}/${IMAGE_NAME}:${GIT_SHA}" \
         -t "${REGISTRY}/${IMAGE_NAME}:latest" \
@@ -35,7 +57,7 @@ build_image() {
 # ─── Step 2: Push to local registry ───
 push_image() {
     echo ""
-    echo "[2/4] Pushing image to ${REGISTRY}..."
+    echo "[2/5] Pushing image to ${REGISTRY}..."
     docker push "${REGISTRY}/${IMAGE_NAME}:${GIT_SHA}"
     docker push "${REGISTRY}/${IMAGE_NAME}:latest"
     echo "  Image pushed."
@@ -44,7 +66,7 @@ push_image() {
 # ─── Step 3: Import into k3s containerd ───
 import_to_k3s() {
     echo ""
-    echo "[3/4] Importing image into k3s containerd..."
+    echo "[3/5] Importing image into k3s containerd..."
 
     local k3s_bin="/var/lib/rancher/k3s/data/5a9973ddf4c7ec074f657c06287e0e6a07a24ecafd6d326827f70ef1e95bdd2d/bin"
     if [ ! -d "$k3s_bin" ]; then
@@ -53,11 +75,9 @@ import_to_k3s() {
         return 0
     fi
 
-    # Export image to tar
     local tar_file="/tmp/pdaccess-${GIT_SHA}.tar"
     docker save "${REGISTRY}/${IMAGE_NAME}:${GIT_SHA}" -o "$tar_file"
 
-    # Import via Docker container with ctr
     docker run --rm \
         -v /run/k3s:/run/k3s \
         -v "${tar_file}:/tmp/image.tar" \
@@ -75,7 +95,7 @@ import_to_k3s() {
 # ─── Step 4: Deploy with Helm ───
 deploy_helm() {
     echo ""
-    echo "[4/4] Deploying with Helm..."
+    echo "[4/5] Deploying with Helm..."
     helm upgrade "${RELEASE}" "${CHART_PATH}" \
         --install \
         --create-namespace \
@@ -88,18 +108,37 @@ deploy_helm() {
     echo "  Deployment complete."
 }
 
+# ─── Step 5: Verify ───
+verify_deployment() {
+    echo ""
+    echo "[5/5] Verifying deployment..."
+    local ready=0
+    for i in $(seq 1 30); do
+        if kubectl get pods -n "${NAMESPACE}" -l "app=${IMAGE_NAME}" -o jsonpath='{.items[*].status.conditions[?(@.type=="Ready")].status}' 2>/dev/null | grep -q True; then
+            ready=1
+            break
+        fi
+        sleep 2
+    done
+    if [ "$ready" -eq 1 ]; then
+        echo "  Pods are ready."
+    else
+        echo "  WARNING: Pods may not be ready yet."
+    fi
+}
+
 # ─── Main ───
 main() {
-    # Check prerequisites
     command -v docker >/dev/null 2>&1 || { echo "ERROR: docker is required"; exit 1; }
     command -v kubectl >/dev/null 2>&1 || { echo "ERROR: kubectl is required"; exit 1; }
     command -v helm >/dev/null 2>&1 || { echo "ERROR: helm is required"; exit 1; }
 
-    # Steps 1-4
+    ensure_ingress
     build_image
     push_image
     import_to_k3s
     deploy_helm
+    verify_deployment
 
     echo ""
     echo "============================================"
