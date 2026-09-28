@@ -1,0 +1,11 @@
+apiVersion: v2
+name: pdaccess
+description: PDAccess - Next Generation Privileged Access Management
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - nuxt
+  - pamm
+  - iam
+  - security

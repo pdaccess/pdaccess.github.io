@@ -1,0 +1,42 @@
+# PDAccess Helm Chart Values
+
+image:
+  repository: registry.home.arpa/pdaccess/pdaccess
+  tag: ""  # defaults to git SHA in CI
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+    # cert-manager.io/cluster-issuer: letsencrypt
+  host: pweb.home.arpa
+  tls:
+    enabled: false
+    # secretName: pweb-tls
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+podSecurityContext: {}
+securityContext: {}
+
+serviceAccount:
+  create: false
