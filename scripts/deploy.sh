@@ -21,32 +21,10 @@ echo "Ingress:    ${INGRESS_HOST}"
 echo "Git SHA:    ${GIT_SHA}"
 echo "============================================"
 
-# ─── Step 0: Install nginx ingress controller if missing ───
-ensure_ingress() {
-    if kubectl get ingressclass nginx &>/dev/null && \
-       kubectl get pods -n ingress-nginx -l app.kubernetes.io/component=controller &>/dev/null; then
-        echo ""
-        echo "[0/5] nginx ingress controller already running."
-        return 0
-    fi
-
-    echo ""
-    echo "[0/5] Installing nginx ingress controller..."
-    helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx 2>/dev/null || true
-    helm repo update ingress-nginx 2>/dev/null || true
-    helm install ingress-nginx ingress-nginx/ingress-nginx \
-        --namespace ingress-nginx \
-        --create-namespace \
-        --set controller.service.type=NodePort \
-        --set controller.admissionWebhooks.enabled=false \
-        --wait --timeout 300s 2>/dev/null || true
-    echo "  nginx ingress controller installed."
-}
-
 # ─── Step 1: Build Docker image ───
 build_image() {
     echo ""
-    echo "[1/5] Building Docker image..."
+    echo "[1/4] Building Docker image..."
     docker build \
         -t "${REGISTRY}/${IMAGE_NAME}:${GIT_SHA}" \
         -t "${REGISTRY}/${IMAGE_NAME}:latest" \
@@ -57,7 +35,7 @@ build_image() {
 # ─── Step 2: Push to local registry ───
 push_image() {
     echo ""
-    echo "[2/5] Pushing image to ${REGISTRY}..."
+    echo "[2/4] Pushing image to ${REGISTRY}..."
     docker push "${REGISTRY}/${IMAGE_NAME}:${GIT_SHA}"
     docker push "${REGISTRY}/${IMAGE_NAME}:latest"
     echo "  Image pushed."
@@ -66,7 +44,7 @@ push_image() {
 # ─── Step 3: Import into k3s containerd ───
 import_to_k3s() {
     echo ""
-    echo "[3/5] Importing image into k3s containerd..."
+    echo "[3/4] Importing image into k3s containerd..."
 
     local k3s_bin="/var/lib/rancher/k3s/data/5a9973ddf4c7ec074f657c06287e0e6a07a24ecafd6d326827f70ef1e95bdd2d/bin"
     if [ ! -d "$k3s_bin" ]; then
@@ -95,7 +73,7 @@ import_to_k3s() {
 # ─── Step 4: Deploy with Helm ───
 deploy_helm() {
     echo ""
-    echo "[4/5] Deploying with Helm..."
+    echo "[4/4] Deploying with Helm..."
     helm upgrade "${RELEASE}" "${CHART_PATH}" \
         --install \
         --create-namespace \
@@ -133,7 +111,6 @@ main() {
     command -v kubectl >/dev/null 2>&1 || { echo "ERROR: kubectl is required"; exit 1; }
     command -v helm >/dev/null 2>&1 || { echo "ERROR: helm is required"; exit 1; }
 
-    ensure_ingress
     build_image
     push_image
     import_to_k3s
