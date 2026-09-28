@@ -11,8 +11,9 @@ RUN npm run generate
 
 FROM nginx:alpine
 
-COPY --from=build /app/.output/public /app
-COPY pdaccess.app.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/.output/public /usr/share/nginx/html
+COPY pdaccess.app.conf /etc/nginx/nginx.conf
+RUN rm -f /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

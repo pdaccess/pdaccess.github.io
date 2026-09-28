@@ -1,7 +1,7 @@
-REGISTRY     ?= registry.home.arpa/pdaccess
+REGISTRY     ?= 127.0.0.1:5000
 IMAGE_NAME   ?= pdaccess
-RELEASE      ?= pdaccess
-NAMESPACE    ?= pdaccess
+RELEASE      ?= pdaccess-web
+NAMESPACE    ?= pdaccess-web
 INGRESS_HOST ?= pweb.home.arpa
 CHART_PATH   ?= charts/pdaccess
 
@@ -13,7 +13,7 @@ build:
 	@echo "Building Docker image: $(IMAGE_NAME):$(GIT_SHA)"
 	docker build -t $(REGISTRY)/$(IMAGE_NAME):$(GIT_SHA) -t $(REGISTRY)/$(IMAGE_NAME):latest .
 
-push:
+push: build
 	@echo "Pushing to $(REGISTRY)"
 	docker push $(REGISTRY)/$(IMAGE_NAME):$(GIT_SHA)
 	docker push $(REGISTRY)/$(IMAGE_NAME):latest
@@ -26,12 +26,14 @@ deploy:
 		--namespace $(NAMESPACE) \
 		--set "image.repository=$(REGISTRY)/$(IMAGE_NAME)" \
 		--set "image.tag=$(GIT_SHA)" \
+		--set "image.pullPolicy=Never" \
 		--set "ingress.host=$(INGRESS_HOST)" \
 		--wait --timeout 300s
 
-dev: build push deploy
+dev: deploy
 	@echo "Dev deploy complete: $(RELEASE) at $(INGRESS_HOST)"
 
 clean:
-	@echo "Uninstalling $(RELEASE)"
+	@echo "Uninstalling $(RELEASE) from $(NAMESPACE)"
 	helm uninstall $(RELEASE) --namespace $(NAMESPACE) 2>/dev/null || true
+	kubectl delete namespace $(NAMESPACE) --ignore-not-found 2>/dev/null || true
