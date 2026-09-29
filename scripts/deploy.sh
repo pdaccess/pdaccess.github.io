@@ -82,7 +82,7 @@ deploy_helm() {
         --set "image.tag=${GIT_SHA}" \
         --set "image.pullPolicy=Never" \
         --set "ingress.host=${INGRESS_HOST}" \
-        --wait --timeout 300s
+        --force --wait --timeout 300s
     echo "  Deployment complete."
 }
 
