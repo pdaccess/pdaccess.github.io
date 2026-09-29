@@ -74,6 +74,8 @@ import_to_k3s() {
 deploy_helm() {
     echo ""
     echo "[4/4] Deploying with Helm..."
+    # Uninstall first to avoid conflicts with server-side apply
+    helm uninstall "${RELEASE}" --namespace "${NAMESPACE}" 2>/dev/null || true
     helm upgrade "${RELEASE}" "${CHART_PATH}" \
         --install \
         --create-namespace \
@@ -82,7 +84,7 @@ deploy_helm() {
         --set "image.tag=${GIT_SHA}" \
         --set "image.pullPolicy=Never" \
         --set "ingress.host=${INGRESS_HOST}" \
-        --force --wait --timeout 300s
+        --wait --timeout 300s
     echo "  Deployment complete."
 }
 
