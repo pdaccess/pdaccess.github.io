@@ -17,7 +17,7 @@
       <!-- Header -->
       <div class="bg-primary-500 text-white p-4 flex items-center justify-between">
         <div class="flex items-center space-x-2">
-          <img src="/assets/logos/h2h_logo.svg" class="w-8 h-8 rounded-full" alt="PDAccess" />
+          <img src="/assets/logos/h2h_logo.png" class="w-8 h-8 rounded-full" alt="PDAccess" />
           <div>
             <p class="font-semibold text-sm">PDAccess Team</p>
             <p class="text-xs text-white/80">Online</p>

@@ -28,7 +28,6 @@ useHead({
     <!-- Hero Section -->
     <section class="relative pt-32 pb-12 overflow-hidden">
       <div class="absolute inset-0 bg-grid opacity-10"></div>
-      <div class="absolute inset-0 bg-gradient-radial from-cyan-500/10 via-transparent to-transparent animate-glow-pulse"></div>
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto">
           <Badge class="mb-6 border-cyan-500/30 text-cyan-400 bg-cyan-500/10">Solutions</Badge>

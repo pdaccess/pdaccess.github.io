@@ -5,7 +5,7 @@
         <h3 class="text-xl font-semibold text-foreground mb-3">Don't Share Your Credentials</h3>
         <p class="text-muted-foreground text-sm mb-4 leading-relaxed">Your credentials are safe with PDAccess. You don't have to share your credentials with anyone, you have the chance to share only "usage" of them.</p>
         <figure class="rounded-lg overflow-hidden">
-          <img :src="`/screen/terminal_login.gif`" alt="Terminal Login" class="w-full group-hover:scale-105 transition-transform duration-300" />
+          <img :src="`/screen/terminal_login2.png`" alt="Terminal Login" class="w-full group-hover:scale-105 transition-transform duration-300" />
         </figure>
       </div>
     </Card>

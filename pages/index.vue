@@ -3,21 +3,13 @@ definePageMeta({
   layout: 'landing'
 })
 
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import AwsIcon from '~/components/icons/AwsIcon.vue'
 import AzureIcon from '~/components/icons/AzureIcon.vue'
 import GcpIcon from '~/components/icons/GcpIcon.vue'
 import OnPremIcon from '~/components/icons/OnPremIcon.vue'
 
-// Client-only flag to avoid hydration mismatch
-const isClient = ref(false)
-onMounted(() => { isClient.value = true })
-
-// Terminal mockup state
-const terminalLines = ref<string[]>([])
-const currentLineIndex = ref(0)
-const currentCharIndex = ref(0)
-const isTyping = ref(true)
+// Static terminal mockup — no typing animation (avoids 30ms intervals)
 const terminalTexts = [
   'pdaccess connect --protocol ssh --target aws-prod-server-01',
   'Connecting to 52.14.88.123:22 via PDAccess Secure Proxy...',
@@ -31,32 +23,8 @@ const terminalTexts = [
   '[OK] Database session established. Query logged.',
 ]
 
-let typingInterval: ReturnType<typeof setInterval> | null = null
-
-function typeNextLine() {
-  if (currentLineIndex.value >= terminalTexts.length) {
-    currentLineIndex.value = 0
-    terminalLines.value = []
-  }
-  const currentText = terminalTexts[currentLineIndex.value]
-  if (currentCharIndex.value < currentText.length) {
-    if (!terminalLines.value[currentLineIndex.value]) {
-      terminalLines.value[currentLineIndex.value] = ''
-    }
-    terminalLines.value[currentLineIndex.value] += currentText[currentCharIndex.value]
-    currentCharIndex.value++
-  } else {
-    currentLineIndex.value++
-    currentCharIndex.value = 0
-  }
-}
-
-onMounted(() => {
-  typingInterval = setInterval(typeNextLine, 30)
-})
-onUnmounted(() => {
-  if (typingInterval) clearInterval(typingInterval)
-})
+// Typing animation replaced with CSS-only blinking cursor (no JS interval)
+const terminalLines = ref<string[]>(terminalTexts)
 
 // Cloud inventory mock data
 const cloudEnvironments = [
@@ -67,20 +35,9 @@ const cloudEnvironments = [
   { name: 'AWS Staging', region: 'eu-west-1', assets: 56, status: 'active' as const },
 ]
 
-// Session metrics
+// Session metrics — static values (no polling interval)
 const activeConnections = ref(42)
 const bandwidthUsage = ref(42)
-let metricsInterval: ReturnType<typeof setInterval> | null = null
-
-onMounted(() => {
-  metricsInterval = setInterval(() => {
-    activeConnections.value = Math.min(99, Math.max(15, activeConnections.value + Math.floor(Math.random() * 7) - 3))
-    bandwidthUsage.value = Math.min(100, Math.max(20, bandwidthUsage.value + Math.floor(Math.random() * 10) - 5))
-  }, 2000)
-})
-onUnmounted(() => {
-  if (metricsInterval) clearInterval(metricsInterval)
-})
 
 // Least privilege enforcement
 const enforceLeastPrivilege = ref(true)
@@ -104,7 +61,6 @@ const activeSessions = ref<Array<{ user: string; protocol: string; target: strin
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 overflow-hidden">
       <div class="absolute inset-0 bg-grid opacity-20"></div>
-      <div class="absolute inset-0 bg-gradient-radial from-cyan-500/10 via-transparent to-transparent animate-glow-pulse"></div>
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-4xl mx-auto">
           <Badge class="mb-6 border-cyan-500/30 text-cyan-400 bg-cyan-500/10">Zero-Knowledge PAM &amp; Open-Source</Badge>
@@ -121,7 +77,7 @@ const activeSessions = ref<Array<{ user: string; protocol: string; target: strin
             <Button variant="outline" class="border-slate-700 text-slate-300 hover:bg-slate-800 px-8 py-6 text-base">View Documentation</Button>
           </div>
           <div class="max-w-3xl mx-auto">
-            <div v-if="isClient" class="rounded-xl border border-slate-800 bg-[#0d1117] overflow-hidden shadow-2xl shadow-cyan-500/5">
+            <div class="rounded-xl border border-slate-800 bg-[#0d1117] overflow-hidden shadow-2xl shadow-cyan-500/5">
               <div class="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-slate-800">
                 <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                 <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
@@ -130,18 +86,6 @@ const activeSessions = ref<Array<{ user: string; protocol: string; target: strin
               </div>
               <div class="p-6 font-mono text-sm space-y-1 min-h-[280px]">
                 <div v-for="(line, index) in terminalLines" :key="index" class="text-green-400">{{ line }}</div>
-                <div v-if="isTyping" class="text-cyan-400"><span class="text-green-400">$ </span><span class="animate-pulse">&#9608;</span></div>
-              </div>
-            </div>
-            <div v-else class="rounded-xl border border-slate-800 bg-[#0d1117] overflow-hidden shadow-2xl shadow-cyan-500/5">
-              <div class="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-slate-800">
-                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                <span class="ml-2 text-xs text-slate-500 font-mono">pdaccess-terminal</span>
-              </div>
-              <div class="p-6 font-mono text-sm text-green-400 min-h-[280px] flex items-center">
-                <span>$ pdaccess connect --protocol ssh --target aws-prod-server-01</span>
               </div>
             </div>
           </div>
@@ -285,7 +229,7 @@ const activeSessions = ref<Array<{ user: string; protocol: string; target: strin
                         <TableCell class="font-medium text-white">{{ env.name }}</TableCell>
                         <TableCell class="text-slate-400">{{ env.region }}</TableCell>
                         <TableCell class="text-slate-300">{{ env.assets }}</TableCell>
-                        <TableCell><span class="inline-flex items-center gap-1.5 text-green-400 text-sm"><span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>Active</span></TableCell>
+                        <TableCell><span class="inline-flex items-center gap-1.5 text-green-400 text-sm"><span class="w-2 h-2 rounded-full bg-green-400"></span>Active</span></TableCell>
                       </TableRow>
                     </TableBody>
                   </Table>
@@ -327,7 +271,7 @@ const activeSessions = ref<Array<{ user: string; protocol: string; target: strin
                   <div class="space-y-3">
                     <div v-for="(session, index) in activeSessions" :key="index" class="flex items-center justify-between p-4 rounded-lg bg-slate-800/30 border border-slate-800">
                       <div class="flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-400"></div>
                         <div>
                           <div class="text-white text-sm font-medium">{{ session.user }}</div>
                           <div class="text-xs text-slate-400">{{ session.protocol }} &rarr; {{ session.target }}</div>

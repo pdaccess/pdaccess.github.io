@@ -45,7 +45,7 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           <Card v-for="(feature, index) in features" :key="index" class="text-center hover:scale-105 transition-transform duration-300 bg-card/50 border-border/50">
             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary-500/20 flex items-center justify-center">
-              <img :src="feature.img" :alt="feature.title" class="w-12 h-12" />
+              <div class="w-12 h-12 text-cyan-400" v-html="feature.icon" />
             </div>
             <h3 class="text-xl font-semibold mb-2 text-foreground">{{ feature.title }}</h3>
             <p class="text-sm text-muted-foreground">{{ feature.desc }}</p>
@@ -94,10 +94,26 @@ const allRefs = [
 const allImages = computed(() => allRefs.filter(src => src.src))
 
 const features = [
-  { title: 'Authentication', img: '/animations/663-fingerprint-scan.gif', desc: 'OAUTH2, SAML, LDAP' },
-  { title: 'Protocols', img: '/animations/plug.gif', desc: 'SSH, TELNET, VNC, RDP, SQL' },
-  { title: 'Platforms', img: '/animations/computer.gif', desc: 'Mac, Linux, Windows' },
-  { title: 'Vault', img: '/animations/696-padlock-tick.gif', desc: 'Military grade encryption' },
+  {
+    title: 'Authentication',
+    desc: 'OAUTH2, SAML, LDAP',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 7a2 2 0 1 1 4 0 4 4 0 0 1-4 4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11Z"/><path d="M13 17l2 2 4-4"/></svg>'
+  },
+  {
+    title: 'Protocols',
+    desc: 'SSH, TELNET, VNC, RDP, SQL',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="18" r="1" fill="currentColor"/></svg>'
+  },
+  {
+    title: 'Platforms',
+    desc: 'Mac, Linux, Windows',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>'
+  },
+  {
+    title: 'Vault',
+    desc: 'Military grade encryption',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'
+  },
 ]
 
 const details = [
